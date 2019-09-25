@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <div class="container">
+      <AddTodo />
+      <FilterTodos />
       <Todos />
     </div>
   </div>
@@ -8,18 +10,22 @@
 
 <script>
 import Todos from "./components/Todos";
+import AddTodo from "./components/AddTodo"
+import FilterTodos from "./components/FilterTodos"
 
 export default {
   name: "app",
   components: {
-    Todos
+    Todos,
+    AddTodo,
+    FilterTodos
   }
 };
 </script>
 
 <style>
 body {
-  font-display: "Montserrat", sans-serif;
+  font-display: "Montserrat", sans-serif !important;
   line-height: 1.6;
   background: #e8f7f0;
 }
