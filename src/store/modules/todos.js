@@ -14,6 +14,10 @@ const state = {
       id: 3,
       title: 'Todo three'
     },
+    {
+      id: 4,
+      title: 'Todo four'
+    },
   ]
 }
 
