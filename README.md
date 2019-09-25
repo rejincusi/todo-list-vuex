@@ -1,4 +1,4 @@
-# melodify
+# todos
 
 ## Project setup
 ```
