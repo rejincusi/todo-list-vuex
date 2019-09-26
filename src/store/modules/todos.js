@@ -8,16 +8,16 @@ const getters = {
   allTodos: state => state.todos
 }
 
-const serverUrl = 'https://jsonplaceholder.typicode.com/todos'
+const url = 'https://jsonplaceholder.typicode.com/todos'
 
 const actions = {
   async fetchTodos({ commit }) {
-    const res = await axios.get(serverUrl)
+    const res = await axios.get(url)
 
     commit('setTodos', res.data)
   },
   async addTodo({ commit }, title) {
-    const res = await axios.post(serverUrl,
+    const res = await axios.post(url,
       { title, completed: false })
 
     commit('newTodo', res.data)
@@ -27,6 +27,17 @@ const actions = {
 
     commit('removeTodo', id);
   },
+  async filterTodos({ commit }, e) {
+    const limit = parseInt(e.target.options[e.target.options.selectedIndex].innerText)
+    const res = await axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`)
+
+    commit('setTodos', res.data)
+  },
+  async updateTodo({ commit}, updTodo) {
+    const res = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo)
+    
+    commit('updateTodo', updTodo)
+  }
 }
 
 const mutations = {
@@ -34,7 +45,13 @@ const mutations = {
   newTodo: (state, todo) => state.todos.unshift(todo),
   removeTodo: (state, id) =>
     (state.todos = state.todos.filter(todo => todo.id !== id)),
-}
+  updateTodo: (state, updTodo) => {
+    const index = state.todos.findIndex(todo => todo.id === updTodo.id)
+    if (index !== -1) {
+      state.todos.splice(index, 1, updTodo)
+    }
+  }
+  }
 
 export default {
   state,
